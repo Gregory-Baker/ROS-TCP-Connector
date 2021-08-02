@@ -1,11 +1,11 @@
-﻿Shader "Unlit/OccupancyGrid"
+Shader "Unlit/OccupancyGrid"
 {
     Properties
     {
         _MainTex("Texture", 2D) = "white" {}
         _ColorUnknown ("Unknown Color", Color) = (0,0,0,0)
-        _Color0 ("Color 0", Color) = (0,0,0,1)
-        _Color100 ("Color 100", Color) = (1,1,1,1)
+        _Color0 ("Color 0", Color) = (1,1,1,1)
+        _Color100 ("Color 100", Color) = (0,0,0,1)
     }
     SubShader
     {
