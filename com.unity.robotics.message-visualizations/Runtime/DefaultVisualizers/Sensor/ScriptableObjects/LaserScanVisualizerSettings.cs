@@ -17,6 +17,8 @@ public class LaserScanVisualizerSettings : VisualizerSettings<LaserScanMsg>
     float m_MaxIntensity = 100.0f;
     public float MaxIntensity { get => m_MaxIntensity; set => m_MaxIntensity = value; }
 
+    public bool startScanFromZeroAngle = false;
+
     public enum ColorModeType
     {
         Distance,
@@ -33,7 +35,19 @@ public class LaserScanVisualizerSettings : VisualizerSettings<LaserScanMsg>
 
         PointCloudDrawing pointCloud = drawing.AddPointCloud(message.ranges.Length);
         // negate the angle because ROS coordinates are right-handed, unity coordinates are left-handed
-        float angle = -message.angle_min;
+        float angle;
+
+        // RPlidar publishes angle_min as -pi even though scans start from 0 - when I tried to change that, it broke cartographer
+        // This is a hack to correct for that on the unity side
+        if (startScanFromZeroAngle)
+        {
+            angle = 0; 
+        }
+        else
+        {
+            angle = -message.angle_min;
+        }
+        
         ColorModeType mode = m_ColorMode;
         if (mode == ColorModeType.Intensity && message.intensities.Length != message.ranges.Length)
             mode = ColorModeType.Distance;
