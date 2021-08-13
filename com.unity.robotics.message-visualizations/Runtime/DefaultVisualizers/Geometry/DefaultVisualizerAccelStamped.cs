@@ -12,11 +12,17 @@ public class DefaultVisualizerAccelStamped : StampedDrawingVisualFactory<AccelSt
     public GameObject m_Origin;
     [SerializeField]
     Color m_Color;
+    [SerializeField]
+    TFTrackingType m_TFTrackingType;
 
     public override void Draw(BasicDrawing drawing, AccelStampedMsg message, MessageMetadata meta)
     {
         drawing.SetTFTrackingType(m_TFTrackingType, message.header);
+<<<<<<< HEAD
         message.accel.Draw<FLU>(drawing, SelectColor(m_Color, meta), m_Origin, m_LengthScale, m_SphereRadius, m_Thickness);
+=======
+        DefaultVisualizerAccel.Draw<FLU>(message.accel, drawing, SelectColor(m_Color, meta), m_Origin, m_LengthScale, m_SphereRadius, m_Thickness);
+>>>>>>> 8496510bf91e687cdf8b99e236016bd457286055
     }
 
     public override Action CreateGUI(AccelStampedMsg message, MessageMetadata meta)

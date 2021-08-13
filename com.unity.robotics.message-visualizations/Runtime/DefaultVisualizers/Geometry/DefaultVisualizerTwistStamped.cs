@@ -18,7 +18,7 @@ namespace Unity.Robotics.MessageVisualizers
         {
             drawing.SetTFTrackingType(m_TFTrackingType, message.header);
             var orig = origin == null ? Vector3.zero : origin.transform.position;
-            message.twist.Draw<FLU>(drawing, SelectColor(m_Color, meta), orig, lengthScale, sphereRadius, thickness);
+            DefaultVisualizerTwist.Draw<FLU>(message.twist, drawing, SelectColor(m_Color, meta), orig, lengthScale, sphereRadius, thickness);
         }
 
         public override Action CreateGUI(TwistStampedMsg message, MessageMetadata meta) => () =>

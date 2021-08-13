@@ -20,8 +20,20 @@ public class DefaultVisualizerImu : StampedDrawingVisualFactory<ImuMsg>
 
     public override void Draw(BasicDrawing drawing, ImuMsg message, MessageMetadata meta)
     {
+<<<<<<< HEAD
         drawing.SetTFTrackingType(m_TFTrackingType, message.header);
         message.Draw<FLU>(drawing, SelectColor(m_Color, meta), m_LengthScale, m_SphereRadius, m_Thickness);
+=======
+        Draw<FLU>(message, drawing, SelectColor(m_Color, meta), m_LengthScale, m_SphereRadius, m_Thickness);
+    }
+
+    public static void Draw<C>(ImuMsg message, BasicDrawing drawing, Color color, float lengthScale = 1, float sphereRadius = 1, float thickness = 0.01f) where C : ICoordinateSpace, new()
+    {
+        TFFrame frame = TFSystem.instance.GetTransform(message.header);
+        message.orientation.Draw<C>(drawing, frame.translation);
+        drawing.DrawArrow(frame.translation, frame.translation + message.linear_acceleration.From<C>() * lengthScale, color, thickness);
+        MessageVisualizations.DrawAngularVelocityArrow(drawing, message.angular_velocity.From<C>(), frame.translation, color, sphereRadius, thickness);
+>>>>>>> 8496510bf91e687cdf8b99e236016bd457286055
     }
 
     public override Action CreateGUI(ImuMsg message, MessageMetadata meta)

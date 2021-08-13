@@ -16,8 +16,12 @@ public class DefaultVisualizerAccelWithCovarianceStamped : StampedDrawingVisualF
 
     public override void Draw(BasicDrawing drawing, AccelWithCovarianceStampedMsg message, MessageMetadata meta)
     {
+<<<<<<< HEAD
         drawing.SetTFTrackingType(m_TFTrackingType, message.header);
         message.accel.accel.Draw<FLU>(drawing, SelectColor(m_Color, meta), m_Origin, m_LengthScale, m_SphereRadius, m_Thickness);
+=======
+        DefaultVisualizerAccelWithCovariance.Draw<FLU>(message.accel, drawing, SelectColor(m_Color, meta), m_Origin, m_LengthScale, m_SphereRadius, m_Thickness);
+>>>>>>> 8496510bf91e687cdf8b99e236016bd457286055
     }
 
     public override Action CreateGUI(AccelWithCovarianceStampedMsg message, MessageMetadata meta)
